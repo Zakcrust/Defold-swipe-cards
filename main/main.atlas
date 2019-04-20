@@ -1,0 +1,15 @@
+images {
+  image: "/assets/bracket.png"
+}
+images {
+  image: "/assets/CardFaceDown.png"
+}
+images {
+  image: "/assets/CardFaceUp.png"
+}
+images {
+  image: "/assets/background.png"
+}
+margin: 2
+extrude_borders: 2
+inner_padding: 2

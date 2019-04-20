@@ -1,0 +1,4 @@
+function spawnCard()
+	local component = "spawner#cardFactory"
+	factory.create(component)
+end

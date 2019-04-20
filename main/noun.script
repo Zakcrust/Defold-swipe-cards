@@ -1,0 +1,32 @@
+
+local m = require "main.nounstorage" -- initialize instance of nounstorage.lua
+-- initialize tables
+local obj = "cardUp"
+local labels = {}
+function init(self) -- execution on start
+	str = m.getNoun()
+	updateNoun("#alabel",str)
+end
+
+function update(self, dt) --executed every dt time
+	updateMovement()
+end
+
+function updateMovement() -- makes the label of the card move along with the card
+	pos = go.get_position(obj .. "#cardFaceUp")
+	pos.z = -1;
+	go.set_position(pos,obj .. "#alabel")
+end
+
+
+function updateNoun(url, text) -- updates the word shown on card based on current noun used
+	labels[url] = text
+	label.set_text(url, text)
+end
+
+-- checks if there's a message telling to update label from other scripts
+function on_message(self, message_id, message, sender) 
+	if message_id == hash("updateLabel") then
+		updateNoun("#alabel", m.getNoun())
+	end
+end

@@ -1,0 +1,10 @@
+function init(self)
+	-- set initial location
+	local pos = vmath.vector3(sys.get_config("display.width")/2, sys.get_config("display.height")*3/4, 0)
+	self.target_pos = go.set_position(pos,"#cardFaceDown")
+end
+
+function update(self, dt)
+	
+end
+

@@ -1,0 +1,47 @@
+
+--counter = 0;
+--COUNTER_MAX = 30;
+function init(self)
+	msg.post(".", "acquire_input_focus") -- in order to get input from mouse and touch
+	-- set location of card
+	local pos = vmath.vector3(sys.get_config("display.width")/2, sys.get_config("display.height")*3/4, 1)
+	self.target_pos = go.set_position(pos,"cardUp#cardFaceUp")
+end
+
+function update(self, dt)
+	--initMove()
+end
+--[[
+function initMove()
+	if counter < 30 then
+		local pos = go.get_position("cardUp#cardFaceUp")
+		pos.y = pos.y-4;
+		go.set_position(pos,"cardUp#cardFaceUp")
+		counter = counter + 1
+	end
+	
+end
+]]
+
+function on_input(self, action_id, action) -- check if card is touched
+
+	if action_id == hash("touch") or action_id==hash("left_click") then
+
+		local spritePos = go.get_world_position("cardUp") 	-- get card position
+		local mouseX = action.x  -- getting mouse position
+		local mouseY = action.y  --
+		local rightBoundary = spritePos.x - 32   -- get half of width
+		local leftBoundary = spritePos.x + 32    --
+		local upperBoundary = spritePos.y + 48   -- get half of height
+		local downBoundary = spritePos.y - 48    --
+		-- the math to count wheter the touch is pressed on the card
+		if mouseX >= rightBoundary and mouseX <= leftBoundary and mouseY >= downBoundary and mouseY <= upperBoundary then
+			local xPos = action.x
+			local yPos = action.y
+			go.set_position(vmath.vector3(xPos, yPos, 0)) -- the card will follow the touch
+		end
+	end
+	
+	
+	
+end

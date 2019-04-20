@@ -1,0 +1,34 @@
+local m = require "main.nounstorage" -- initialize instance of nounstorage.lua
+
+function init(self) -- execution on start
+	a_rule = {'A','I','U','E','O','Y','H'} -- defining a table consist of rule of a
+	-- setting the position of the bracket
+	local pos = vmath.vector3(sys.get_config("display.width")*3/4,sys.get_config("display.height")/3, -0)
+	self.target_pos = go.set_position(pos,"#bracket")
+end
+--[[]]
+function on_message(self, message_id, message,sender)
+	-- checks if the card collide with the bracket
+	if message_id == hash("collision_response") then
+		-- get current noun used
+		str = m.getStr()
+		-- get first char of str
+		substr = string.sub(str, 1,1)
+		print(substr)
+		for x,y in ipairs(a_rule) do -- check if the char does match (loop)
+			if substr == string.sub(a_rule[x], 1,1) then
+				local pos = go.get_position("cardDown") -- reset the card position
+				go.set_position(pos,"cardUp")			--
+				msg.post("cardUp#noun", "updateLabel")  -- update Card Label as it gets new word
+				print("benar")							-- shows status of answer (debug)
+			else
+				local pos = go.get_position("cardDown") -- reset card position
+				go.set_position(pos,"cardUp")			--  
+				msg.post("cardUp#noun", "updateLabel")	-- update Card Label as it gets new word 
+				print("salah")							-- shows status of answer (debug)
+			end
+			
+			
+		end
+	end
+end	

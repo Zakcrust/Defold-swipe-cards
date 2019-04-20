@@ -1,0 +1,31 @@
+-- look for _a.script for description
+local m = require "main.nounstorage"
+noun = ""
+tempNoun = ""
+function init(self)
+	a_rule = {'A','I','U','E','O','Y','H'}
+	local pos = vmath.vector3(sys.get_config("display.width")/4,sys.get_config("display.height")/3, 0)
+	self.target_pos = go.set_position(pos,"#bracketan")
+end
+
+function on_message(self, message_id, message,sender)
+	if message_id == hash("collision_response") then
+		str = m.getStr()
+		substr = string.sub(str, 1,1)
+		print(substr)
+		for x,y in ipairs(a_rule) do
+			if substr ~= string.sub(a_rule[x], 1,1) then
+				local pos = go.get_position("cardDown")
+				go.set_position(pos,"cardUp")
+				msg.post("cardUp#noun", "updateLabel")
+				print("benar")
+			else
+				local pos = go.get_position("cardDown")
+				go.set_position(pos,"cardUp")
+				msg.post("cardUp#noun", "updateLabel")
+				print("salah")
+			end
+		
+		end
+	end
+end	
